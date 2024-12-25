@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jewelry Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>GOLD PAWN SYSTEM</h1>
+        <div class="flex-container">
+            <!-- Column 1: Description -->
+            <div class="column upload">
+                <h2>Upload an Image</h2>
+                <p>Upload an image to detect jewelry using YOLO.</p>
+            
+                <form action="/" method="POST" enctype="multipart/form-data">
+                    <label for="file">Choose an image:</label><br>
+                    <input type="file" name="file" id="file" accept="image/*" required><br><br>
+                    <button type="submit">Upload and Detect</button>
+                </form>
+            </div>
+
+            <!-- Column 2: Input -->
+            <div class="column_input">
+                {% if uploaded_image %}
+                <h2>Original Image</h2>
+                <img src="{{ url_for('static', filename=uploaded_image.split('static/')[1]) }}" alt="Uploaded Image" width="300">
+                {% endif %}
+            </div>
+
+            <!-- Column 3: Output -->
+            <div class="column output">
+                {% if uploaded_image %}
+                <h2>Detected Image</h2>
+                <img src="{{ url_for('static', filename=prediction_image.split('static/')[1]) }}" alt="Prediction Image" width="300">
+                <p>Processing Time: {{ execution_time }} seconds</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
